@@ -1,6 +1,7 @@
 import React from "react";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
+import axios from "axios";
 
 const UserForm = ({ values, errors, touched, isSubmitting }) => (
   <Form>
@@ -55,9 +56,25 @@ const FormikApp = withFormik({
   }),
 
   handleSubmit(values, { setErrors, resetForm, setSubmitting }) {
+    axios
+      .post("https://reqres.in/api/users", {
+        email: values.email,
+        password: values.password
+      })
+      .then(response => {
+        console.log(response);
+        window.alert(
+          `Created an account for ${response.data.email} with an id number of ${
+            response.data.id
+          }.`
+        );
+      })
+      .catch(err => {
+        console.log("this is an error:", err);
+      });
     console.log(values);
     setTimeout(() => {
-      if (values.email === "deejayeaster@live.com") {
+      if (values.email === "waffle@syrup.com") {
         setErrors({ email: "That email is taken" });
       } else {
         resetForm();
