@@ -2,7 +2,7 @@ import React from "react";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 
-const UserForm = ({ values, errors, touched }) => (
+const UserForm = ({ values, errors, touched, isSubmitting }) => (
   <Form>
     <div>
       {touched.name && errors.name && <p>{errors.name}</p>}
@@ -26,7 +26,9 @@ const UserForm = ({ values, errors, touched }) => (
       <option value="free">Free</option>
       <option value="premium">Premium</option>
     </Field>
-    <button type="submit">Submit</button>
+    <button disabled={isSubmitting} type="submit">
+      Submit
+    </button>
   </Form>
 );
 
