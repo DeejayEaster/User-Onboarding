@@ -1,12 +1,13 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 
-import "./styles.css";
-
-const App = ({ values, errors, touched }) => (
+const UserForm = ({ values, errors, touched }) => (
   <Form>
+    <div>
+      {touched.name && errors.name && <p>{errors.name}</p>}
+      <Field type="name" name="name" placeholder="Full Name" />
+    </div>
     <div>
       {touched.email && errors.email && <p>{errors.email}</p>}
       <Field type="email" name="email" placeholder="Email" />
@@ -17,7 +18,8 @@ const App = ({ values, errors, touched }) => (
     </div>
 
     <label>
-      <Field type="checkbox" name="newsletter" checked={values.newsletter} />
+      {touched.tos && errors.tos && <p>{errors.tos}</p>}
+      <Field type="checkbox" name="tos" checked={values.tos} />
       TOS
     </label>
     <Field component="select" name="plan">
@@ -29,22 +31,25 @@ const App = ({ values, errors, touched }) => (
 );
 
 const FormikApp = withFormik({
-  mapPropsToValues({ email, password, newsletter, plan }) {
+  mapPropsToValues({ name, email, password, tos, plan }) {
     return {
+      name: name || "",
       email: email || "",
       password: password || "",
-      newsletter: newsletter || true,
+      tos: tos || true,
       plan: plan || "free"
     };
   },
 
   validationSchema: Yup.object().shape({
+    name: Yup.string().required(),
     email: Yup.string()
       .email("Email is not valid")
       .required("Email is required"),
     password: Yup.string()
       .min(9, "password must be 9 char or longer")
-      .required("A password is required")
+      .required("A password is required"),
+    tos: Yup.boolean().oneOf([true], "Must Accept Terms and Conditions")
   }),
 
   handleSubmit(values, { setErrors, resetForm, setSubmitting }) {
@@ -55,10 +60,10 @@ const FormikApp = withFormik({
       } else {
         resetForm();
       }
+      //I cant get the submit button to no work while loading
       setSubmitting(false);
     }, 2000);
   }
-})(App);
+})(UserForm);
 
-const rootElement = document.getElementById("root");
-ReactDOM.render(<FormikApp />, rootElement);
+export default FormikApp;
