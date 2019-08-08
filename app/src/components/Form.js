@@ -14,7 +14,7 @@ const UserForm = ({ values, errors, touched, isSubmitting, status }) => {
   }, [status]);
   return (
     <Form>
-      <h2 className="heading">Welcome, new guy! Create A new account.</h2>
+      <h2 className="heading">Welcome, new guy! Create a new account.</h2>
       {touched.name && errors.name && <p>{errors.name}</p>}
       <div className="ui fluid input">
         <Field type="name" name="name" placeholder="Full Name" />
