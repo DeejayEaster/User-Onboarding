@@ -1,0 +1,51 @@
+body {
+  background-color: #2e3f4d;
+  margin: 0 auto;
+  width: 55%;
+}
+.App {
+  width: 100%;
+}
+
+form {
+  position: absolute;
+  top: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem;
+  width: 50%;
+  border: 3px solid #111;
+  background-color: #86c0bf;
+  box-shadow: 5px 10px 20px #222;
+  transition: all 300ms ease;
+}
+
+form:hover {
+  transform: scale(1.05);
+  transition: all 300ms ease;
+}
+.input {
+  margin-bottom: 1rem !important;
+  width: 50%;
+  color: #333 !important;
+}
+
+select {
+  width: 15%;
+  margin-top: 1rem;
+}
+
+button {
+  width: 15%;
+  margin-top: 1rem !important;
+}
+::placeholder {
+  color: #555 !important;
+}
+
+.heading {
+  padding: 2rem;
+  color: #f7e17e;
+  font-size: 2.2em;
+}
